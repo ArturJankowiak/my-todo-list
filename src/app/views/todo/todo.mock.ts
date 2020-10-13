@@ -1,6 +1,5 @@
 import { TodoItem } from './todo-item';
 
-
 export const TODO_LIST: Array<TodoItem> = [
     {
       id: 1,
@@ -17,5 +16,4 @@ export const TODO_LIST: Array<TodoItem> = [
       description: 'Third item',
       isDone: true
     }
- 
 ];
