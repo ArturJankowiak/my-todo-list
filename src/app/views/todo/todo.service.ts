@@ -6,10 +6,23 @@ import { TODO_LIST } from './todo.mock';
   providedIn: 'root'
 })
 export class TodoService {
+  todoList: Array<TodoItem> = [];
 
-  constructor() { }
+  constructor() {
+    this.todoList = TODO_LIST;
+  }
+
+  addTodoItem(todo: TodoItem): Promise<number> {
+    const ids: Array<number> = this.todoList.map(todoItem => todoItem.id); 
+    const id: number = (Math.max.apply(Math, ids) +1) || 1;
+
+    return Promise.resolve(this.todoList.push({
+      id,
+      ...todo
+    }));
+  }
 
   getTodoList(): Promise<Array<TodoItem>> {
-    return Promise.resolve(TODO_LIST);
+    return Promise.resolve(this.todoList);
   }
 }
