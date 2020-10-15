@@ -15,19 +15,19 @@ export class TodoComponent implements OnInit {
   constructor(private todoService: TodoService, private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
-    this.loadTodoList();
+    this.loadTodoList(); 
     this.todoForm = this.createTodoForm();
   }
 
   addTodo(): void { 
     this.todoService.addTodoItem(this.todoForm.value).then(() => {
-      this.loadTodoList();
-      this.todoForm.reset();
+      this.loadTodoList(); 
+      this.todoForm.reset(); 
     });
   }
 
   createTodoForm(): FormGroup {
-    return this.formBuilder.group({
+    return this.formBuilder.group({  
       description: ['', Validators.required],
       isDone: [false]
     });
