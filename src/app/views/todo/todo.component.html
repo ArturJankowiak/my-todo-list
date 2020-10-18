@@ -27,18 +27,34 @@
             This field is required!
           </p>
         </form>
-        <div class="sda-list-wrapper">
+        <div
+        class="sda-list-wrapper"
+        *ngIf="todoList.length > 0; else emptyStateForTodoItems"
+         >
           <ul class="d-flex flex-column">
-            <li *ngFor="let todo of todoList">
-              <div class="form-check">
-                <label class="form-check-label">
-                  <input
-                    class="checkbox"
-                    type="checkbox"
-                    [(ngModel)]="todo.isDone"
-                  />
-                  {{ todo.description }}
-                </label>
+            <li *ngFor="let todo of todoList; let i = index; first as isFirst">
+              <div class="input-group mb-3" [ngClass]="{ 'mt-3': isFirst}">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">
+                    <input type="checkbox" [(ngModel)]="todo.isDone" />
+                  </div>
+                </div>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="todo.description"
+                  [ngClass]="{ 'item-done': todo.isDone }"
+                  [disabled]="todo.isDone"
+                />
+                <div class="input-group-append">
+                  <button
+                   class="btn btn-outline-secondary" 
+                   type="button"
+                   (click)="removeTodo(todo.id, $event)"
+                   >
+                    Remove
+                  </button>
+                </div>
               </div>
             </li>
           </ul>
@@ -46,3 +62,13 @@
       </div>
     </div>
   </div>
+
+  <ng-template #emptyStateForTodoItems>
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">
+          No todo items!
+        </h1>
+      </div>
+    </div>
+  </ng-template>

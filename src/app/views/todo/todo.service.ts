@@ -14,7 +14,11 @@ export class TodoService {
 
   addTodoItem(todo: TodoItem): Promise<number> {
     const ids: Array<number> = this.todoList.map(todoItem => todoItem.id); 
-    const id: number = (Math.max.apply(Math, ids) +1) || 1;
+    let id: number = Math.max.apply(Math, ids) + 1;
+    
+    if (!Number.isFinite(id)) {
+      id = 1;
+    }
 
     return Promise.resolve(this.todoList.push({
       id,
@@ -24,5 +28,12 @@ export class TodoService {
 
   getTodoList(): Promise<Array<TodoItem>> {
     return Promise.resolve(this.todoList);
+  }
+
+  removeTodoItem(id: number): Promise<Array<TodoItem>> {
+    const index: number = this.todoList.findIndex(
+      todoItem => todoItem.id === id
+    );
+    return Promise.resolve(this.todoList.splice(index, 1));
   }
 }

@@ -34,6 +34,11 @@ export class TodoComponent implements OnInit {
   }
 
   private loadTodoList(): void {
-    this.todoService.getTodoList().then(todoList => this.todoList = todoList);
+    this.todoService.getTodoList().then(todoList => this.todoList = todoList); // zapis jednolinijkowy 
+  }
+
+  removeTodo(id: number, ev: any): void {
+    ev.stopPropagation();
+    this.todoService.removeTodoItem(id).then(() => this.loadTodoList()); 
   }
 }
